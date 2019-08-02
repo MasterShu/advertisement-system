@@ -6,30 +6,39 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ad_user")
-public class AdUser {
+@Table(name = "plan")
+public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Basic
-    @Column(name = "username", nullable = false)
-    private String username;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Basic
-    @Column(name = "token", nullable = false)
-    private String token;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Basic
-    @Column(name = "user_status", nullable = false)
-    private Integer userStatus;
+    @Column(name = "status", nullable = false)
+    private Integer status;
+
+    @Basic
+    @Column(name = "start_time", nullable = false)
+    private Date startTime;
+
+    @Basic
+    @Column(name = "end_time", nullable = false)
+    private Date endTime;
 
     @Basic
     @Column(name = "created_time", nullable = false)
@@ -39,10 +48,12 @@ public class AdUser {
     @Column(name = "updated_time", nullable = false)
     private Date updatedTime;
 
-    public AdUser(String username, String token) {
-        this.username = username;
-        this.token = token;
-        this.userStatus = CommonStatus.VALID.getStatus();
+    public Plan(Long userId, String name, Date startTime, Date endTime){
+        this.userId = userId;
+        this.name = name;
+        this.status = CommonStatus.VALID.getStatus();
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.createdTime = new Date();
         this.updatedTime = this.createdTime;
     }
