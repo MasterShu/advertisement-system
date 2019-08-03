@@ -8,7 +8,9 @@ public interface IUnitService {
 
     UnitKeywordResponse createUnitKeyword(UnitKeywordRequest request) throws AdsException;
 
-    UnitItResponse createUnit(UnitItRequest request) throws AdsException;
+    UnitItResponse createUnitIt(UnitItRequest request) throws AdsException;
 
     UnitDistrictResponse  createUnitDistrict(UnitDistrictRequest request) throws AdsException;
+
+    CreativeUnitResponse createCreativeUnit(CreativeUnitRequest request) throws AdsException;
 }

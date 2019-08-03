@@ -7,3 +7,10 @@ eureka:
   client:
     service-url:
       defaultZone: http://server001:8000/eureka/
+zuul:
+  prefix: /master
+  routes:
+    sponsor:
+      path: /ads-sponsor/**
+      serviceId: eureka-client-ads-sponsor
+      strip-prefix: false

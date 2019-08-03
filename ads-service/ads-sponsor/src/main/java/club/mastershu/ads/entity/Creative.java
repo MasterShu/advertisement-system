@@ -41,11 +41,11 @@ public class Creative {
 
     @Basic
     @Column(name = "duration", nullable = false)
-    private Long duration;
+    private Integer duration;
 
     @Basic
     @Column(name = "audit_status", nullable = false)
-    private Long auditStatus;
+    private Integer auditStatus;
 
     @Basic
     @Column(name = "user_id", nullable = false)
@@ -53,7 +53,7 @@ public class Creative {
 
     @Basic
     @Column(name = "url", nullable = false)
-    private Long url;
+    private String  url;
 
     @Basic
     @Column(name = "size", nullable = false)
