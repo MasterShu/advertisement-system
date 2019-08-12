@@ -9,15 +9,19 @@ import club.mastershu.ads.dao.unit_condition.CreativeUnitRepository;
 import club.mastershu.ads.dao.unit_condition.UnitDistrictRepository;
 import club.mastershu.ads.dao.unit_condition.UnitItRepository;
 import club.mastershu.ads.dao.unit_condition.UnitKeywordRepository;
-import club.mastershu.ads.dump.table.CreativeTable;
-import club.mastershu.ads.dump.table.PlanTable;
-import club.mastershu.ads.dump.table.UnitTable;
+import club.mastershu.ads.dump.Constant;
+import club.mastershu.ads.dump.table.*;
 import club.mastershu.ads.entity.Creative;
 import club.mastershu.ads.entity.Plan;
 import club.mastershu.ads.entity.Unit;
+import club.mastershu.ads.entity.unit_condition.CreativeUnit;
 import club.mastershu.ads.entity.unit_condition.UnitDistrict;
+import club.mastershu.ads.entity.unit_condition.UnitIt;
+import club.mastershu.ads.entity.unit_condition.UnitKeyword;
+import club.mastershu.ads.vo.UnitKeywordRequest;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,6 +55,16 @@ public class DumpDataService {
     @Autowired
     private UnitKeywordRepository keywordRepository;
 
+    @Test
+    public void dumpTableData() {
+        dumpPlanTable(String.format("%s%s", Constant.DATA_ROOT_DIR, Constant.PLAN));
+        dumpUnitTable(String.format("%s%s", Constant.DATA_ROOT_DIR, Constant.UNIT));
+        dumpCreativeTable(String.format("%s%s", Constant.DATA_ROOT_DIR, Constant.CREATIVE));
+        dumpCreativeUnitTable(String.format("%s%s", Constant.DATA_ROOT_DIR, Constant.CREATIVE_UNIT));
+        dumpUnitDistrict(String.format("%s%s", Constant.DATA_ROOT_DIR, Constant.UNIT_DISTRICT));
+        dumpUnitItTable(String.format("%s%s", Constant.DATA_ROOT_DIR, Constant.UNIT_IT));
+        dumpUnitKeywordTable(String.format("%s%s", Constant.DATA_ROOT_DIR, Constant.UNIT_KEYWORD));
+    }
     private void dumpPlanTable(String filename) {
         List<Plan> plans = planRepository.findAllByStatus(CommonStatus.VALID.getStatus());
         if (CollectionUtils.isEmpty(plans)) {
@@ -130,6 +144,103 @@ public class DumpDataService {
         } catch (IOException e) {
             e.printStackTrace();
             log.error("dumpPlanTable error");
+        }
+    }
+
+    private void dumpCreativeUnitTable(String filename) {
+        List<CreativeUnit> creativeUnits = creativeUnitRepository.findAll();
+        if (CollectionUtils.isEmpty(creativeUnits)) {
+            return;
+        }
+        List<CreativeUnitTable> creativeUnitTables = new ArrayList<>();
+        creativeUnits.forEach(creativeUnit -> creativeUnitTables.add(
+                new CreativeUnitTable(
+                        creativeUnit.getCreativeId(),
+                        creativeUnit.getUnitId()
+                )
+        ));
+        Path path = Paths.get(filename);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (CreativeUnitTable creativeUnitTable : creativeUnitTables) {
+                writer.write(JSON.toJSONString(creativeUnitTable));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("dumpCreativeUnitTable error");
+        }
+    }
+
+    private void dumpUnitDistrict(String filename) {
+        List<UnitDistrict> unitDistricts = districtRepository.findAll();
+        if (CollectionUtils.isEmpty(unitDistricts)) {
+            return;
+        }
+        List<UnitDistrictTable> unitDistrictTables = new ArrayList<>();
+        unitDistricts.forEach(unitDistrict -> unitDistrictTables.add(
+                new UnitDistrictTable(
+                        unitDistrict.getUnitId(),
+                        unitDistrict.getProvince(),
+                        unitDistrict.getCity()
+                )
+        ));
+        Path path = Paths.get(filename);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (UnitDistrictTable unitDistrictTable : unitDistrictTables) {
+                writer.write(JSON.toJSONString(unitDistrictTable));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("dumpUnitDistrictTable error");
+        }
+    }
+
+    private void dumpUnitItTable(String filename) {
+        List<UnitIt> unitIts = itRepository.findAll();
+        if (CollectionUtils.isEmpty(unitIts)) {
+            return;
+        }
+        List<UnitItTable> unitItTables = new ArrayList<>();
+        unitIts.forEach(unitIt -> unitItTables.add(
+                new UnitItTable(
+                        unitIt.getUnitId(),
+                        unitIt.getItTag()
+                )
+        ));
+        Path path = Paths.get(filename);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (UnitItTable unitItTable : unitItTables) {
+                writer.write(JSON.toJSONString(unitItTable));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("dumpUnitItTable error");
+        }
+    }
+
+    private void dumpUnitKeywordTable(String filename) {
+        List<UnitKeyword> unitKeywords = keywordRepository.findAll();
+        if (CollectionUtils.isEmpty(unitKeywords)) {
+            return;
+        }
+        List<UnitKeywordTable> unitKeywordTables = new ArrayList<>();
+        unitKeywords.forEach(unitKeyword -> unitKeywordTables.add(
+                new UnitKeywordTable(
+                        unitKeyword.getUnitId(),
+                        unitKeyword.getKeyword()
+                )
+        ));
+        Path path = Paths.get(filename);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (UnitKeywordTable unitKeywordTable : unitKeywordTables) {
+                writer.write(JSON.toJSONString(unitKeywordTable));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("dumpUnitKeywordTable error");
         }
     }
 }
