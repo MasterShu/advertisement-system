@@ -1,0 +1,128 @@
+{
+  "database": "ads_data",
+  "tableList": [
+    {
+      "tableName": "plan",
+      "level": 2,
+      "insert": [
+        {"column": "id"},
+        {"column": "user_id"},
+        {"column": "status"},
+        {"column": "start_time"},
+        {"column": "end_time"}
+      ],
+      "update": [
+        {"column": "id"},
+        {"column": "user_id"},
+        {"column": "status"},
+        {"column": "start_time"},
+        {"column": "end_time"}
+      ],
+      "delete": [
+        {"column": "id"}
+      ]
+    },
+    {
+      "tableName": "unit",
+      "level": 3,
+      "insert": [
+        {"column": "id"},
+        {"column": "status"},
+        {"column": "position_type"},
+        {"column": "plan_id"}
+      ],
+      "update": [
+        {"column": "id"},
+        {"column": "status"},
+        {"column": "position_type"},
+        {"column": "plan_id"}
+      ],
+      "delete": [
+        {"column": "id"}
+      ]
+    },
+    {
+      "tableName": "creative",
+      "level": 2,
+      "insert": [
+        {"column": "id"},
+        {"column": "type"},
+        {"column": "material_type"},
+        {"column": "height"},
+        {"column": "width"},
+        {"column": "audit_status"},
+        {"column": "url"}
+      ],
+      "update": [
+        {"column": "id"},
+        {"column": "type"},
+        {"column": "material_type"},
+        {"column": "height"},
+        {"column": "width"},
+        {"column": "audit_status"},
+        {"column": "url"}
+      ],
+      "delete": [
+        {"column": "id"}
+      ]
+    },
+    {
+      "tableName": "creative_unit",
+      "level": 3,
+      "insert": [
+        {"column": "creative_id"},
+        {"column": "unit_id"}
+      ],
+      "update": [
+      ],
+      "delete": [
+        {"column": "creative_id"},
+        {"column": "unit_id"}
+      ]
+    },
+    {
+      "tableName": "unit_district",
+      "level": 4,
+      "insert": [
+        {"column": "unit_id"},
+        {"column": "province"},
+        {"column": "city"}
+      ],
+      "update": [
+      ],
+      "delete": [
+        {"column": "unit_id"},
+        {"column": "province"},
+        {"column": "city"}
+      ]
+    },
+    {
+      "tableName": "unit_it",
+      "level": 4,
+      "insert": [
+        {"column": "unit_id"},
+        {"column": "tag"}
+      ],
+      "update": [
+      ],
+      "delete": [
+        {"column": "unit_id"},
+        {"column": "tag"}
+      ]
+    },
+    {
+      "tableName": "unit_keyword",
+      "level": 4,
+      "insert": [
+        {"column": "unit_id"},
+        {"column": "keyword"}
+      ],
+      "update": [
+      ],
+      "delete": [
+        {"column": "unit_id"},
+        {"column": "keyword"}
+      ]
+    }
+  ]
+}
