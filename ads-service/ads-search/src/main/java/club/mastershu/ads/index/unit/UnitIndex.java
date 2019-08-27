@@ -2,9 +2,10 @@ package club.mastershu.ads.index.unit;
 
 import club.mastershu.ads.index.IndexAware;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -13,6 +14,32 @@ public class UnitIndex implements IndexAware<Long, UnitObject> {
     private static Map<Long, UnitObject> objectMap;
     static {
         objectMap = new ConcurrentHashMap<>();
+    }
+
+    public Set<Long> match(Integer positionType) {
+        Set<Long> unitIds = new HashSet<>();
+        objectMap.forEach((k, v) -> {
+            if (UnitObject.isAdSlotTypeOk(positionType, v.getPositionType())) {
+                unitIds.add(k);
+            }
+        });
+        return unitIds;
+    }
+
+    public List<UnitObject> fetch(Collection<Long> unitIds) {
+        if (CollectionUtils.isEmpty(unitIds)) {
+            return Collections.emptyList();
+        }
+        List<UnitObject> unitObjects = new ArrayList<>();
+        unitIds.forEach(u -> {
+            UnitObject object = get(u);
+            if (null == object) {
+                log.error("UnitObject not found {}", u);
+                return;
+            }
+            unitObjects.add(object);
+        });
+        return unitObjects;
     }
 
     @Override

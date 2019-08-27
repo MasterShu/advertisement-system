@@ -4,6 +4,9 @@ import club.mastershu.ads.annotation.IgnoreResponseAdvice;
 import club.mastershu.ads.client.SponsorClient;
 import club.mastershu.ads.client.vo.Plan;
 import club.mastershu.ads.client.vo.PlanGetRequest;
+import club.mastershu.ads.search.ISearch;
+import club.mastershu.ads.search.vo.SearchRequest;
+import club.mastershu.ads.search.vo.SearchResponse;
 import club.mastershu.ads.vo.CommonResponse;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonAlias;
@@ -21,10 +24,18 @@ import java.util.List;
 public class SearchController {
     private final RestTemplate restTemplate;
     private final SponsorClient sponsorClient;
+    private final ISearch search;
 
-    public SearchController(RestTemplate restTemplate, SponsorClient sponsorClient) {
+    public SearchController(RestTemplate restTemplate, SponsorClient sponsorClient, ISearch search) {
         this.restTemplate = restTemplate;
         this.sponsorClient = sponsorClient;
+        this.search = search;
+    }
+
+    @PostMapping("/fetchAds")
+    public SearchResponse fetchAds(@RequestBody SearchRequest request) {
+        log.info("ads-search: fetchAds -> {}", JSON.toJSONString(request));
+        return search.fetchAds(request);
     }
 
     @SuppressWarnings("all")

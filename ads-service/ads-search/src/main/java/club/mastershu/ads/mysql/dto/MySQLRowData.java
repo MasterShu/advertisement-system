@@ -15,7 +15,7 @@ import java.util.Map;
 public class MySQLRowData {
     private String tableName;
 
-    private String level;
+    private Integer level;
 
     private OpType opType;
     private List<Map<String, String>> fieldValueMap = new ArrayList<>();
