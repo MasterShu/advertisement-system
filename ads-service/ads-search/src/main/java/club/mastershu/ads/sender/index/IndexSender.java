@@ -3,8 +3,8 @@ package club.mastershu.ads.sender.index;
 import club.mastershu.ads.dump.table.*;
 import club.mastershu.ads.handler.LevelDataHandler;
 import club.mastershu.ads.index.DataLevel;
-import club.mastershu.ads.mysql.constant.Constant;
-import club.mastershu.ads.mysql.dto.MySQLRowData;
+import club.mastershu.ads.constant.Constant;
+import club.mastershu.ads.dto.MySQLRowData;
 import club.mastershu.ads.sender.ISender;
 import club.mastershu.ads.utils.CommonUtils;
 import com.alibaba.fastjson.JSON;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Component("indexSender")
+@Component
 public class IndexSender implements ISender {
 
     @Override

@@ -14,12 +14,10 @@ import club.mastershu.ads.index.plan.PlanIndex;
 import club.mastershu.ads.index.plan.PlanObject;
 import club.mastershu.ads.index.unit.UnitIndex;
 import club.mastershu.ads.index.unit.UnitObject;
-import club.mastershu.ads.mysql.constant.OpType;
+import club.mastershu.ads.constant.OpType;
 import club.mastershu.ads.utils.CommonUtils;
 import com.alibaba.fastjson.JSON;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.HashSet;
